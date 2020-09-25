@@ -12,14 +12,8 @@ export let getUser = (req: Request, res: Response, next: NextFunction) => {
 
 export let addUser = (req: Request, res: Response, next: NextFunction) => {
   const user: User = {
-    // generic random value from 1 to 100 only for tests so far
     id: Math.floor(Math.random() * 100) + 1,
-    username: req.body.username,
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email,
-    password: req.body.password,
-    phone: req.body.phone,
+    ...req.body,
     userStatus: 1,
   };
   users.push(user);
@@ -33,14 +27,7 @@ export let updateUser = (req: Request, res: Response, next: NextFunction) => {
     return res.status(404).send();
   }
 
-  const user = users[userIndex];
-  user.username = req.body.username || user.username;
-  user.firstName = req.body.firstName || user.firstName;
-  user.lastName = req.body.lastName || user.lastName;
-  user.email = req.body.email || user.email;
-  user.password = req.body.password || user.password;
-  user.phone = req.body.phone || user.phone;
-  user.userStatus = req.body.userStatus || user.userStatus;
+  const user = Object.assign(users[userIndex], req.body);
 
   users[userIndex] = user;
   return res.status(204).send();
