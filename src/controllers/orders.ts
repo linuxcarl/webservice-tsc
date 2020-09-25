@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import * as _ from 'lodash';
+const _ = require('lodash');
 import { Order } from '../models/orders';
 import { OrderStatus } from '../models/orderStatus';
 
@@ -44,7 +44,7 @@ export let removeOrder = (req: Request, res: Response, next: NextFunction) => {
 };
 
 export let getInventory = (req: Request, res: Response, next: NextFunction) => {
-  const { status: string } = req.query;
+  const { status } = req.query;
   let inventoryOrders = orders;
   if (status) {
     inventoryOrders = inventoryOrders.filter((item) => item.status === status);
