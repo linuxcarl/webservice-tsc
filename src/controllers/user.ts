@@ -7,7 +7,7 @@ export let getUser = (req: Request, res: Response, next: NextFunction) => {
   const { username } = req.params;
   const user = users.find((obj) => obj.username === username);
   const httpStatus = user ? 200 : 404;
-  return res.status(httpStatus).send();
+  return res.status(httpStatus).send(user);
 };
 
 export let addUser = (req: Request, res: Response, next: NextFunction) => {
